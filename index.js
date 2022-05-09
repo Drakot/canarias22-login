@@ -38,3 +38,12 @@ btLogout.addEventListener("click", () => {
     localStorage.removeItem("token")
     window.location.href = "login.html"
 })
+
+function checkToken() {
+    if (isTokenExpired()) {
+        localStorage.removeItem("token")
+        window.location.href = "login.html"
+    }
+}
+
+checkToken()

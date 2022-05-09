@@ -34,3 +34,11 @@ async function sendData(queryString) {
         console.log(error)
     }
 }
+
+function checkToken() {
+    if (!isTokenExpired()) {
+        window.location.href = "index.html"
+    }
+}
+
+checkToken()
