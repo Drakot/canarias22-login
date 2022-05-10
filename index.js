@@ -8,9 +8,15 @@ async function sendData() {
                 "Authorization": `Bearer ${token}`
             },
         });
+
         if (!response.ok) {
-            const message = `Error: ${response.status}`;
-            throw new Error(message);
+            if (response.status == 401) {
+                logout()
+                return
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
         }
         const data = await response.json();
         console.log(data);
@@ -18,6 +24,7 @@ async function sendData() {
 
     } catch (error) {
         console.log(error)
+        //Mostrar error al usuario mediante css o js
     }
 }
 
@@ -33,17 +40,25 @@ function showUser(data) {
 sendData()
 
 const btLogout = document.getElementById("btLogout")
+const btTest = document.getElementById("btTest")
 
 btLogout.addEventListener("click", () => {
-    localStorage.removeItem("token")
-    window.location.href = "login.html"
+    logout()
+})
+
+btTest.addEventListener("click", () => {
+    sendData()
 })
 
 function checkToken() {
     if (isTokenExpired()) {
-        localStorage.removeItem("token")
-        window.location.href = "login.html"
+        logout()
     }
 }
 
 checkToken()
+
+function logout() {
+    localStorage.removeItem("token")
+    window.location.href = "login.html"
+}
