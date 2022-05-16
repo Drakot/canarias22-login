@@ -13,7 +13,7 @@ function onLogin() {
 
 async function sendData(queryString) {
     try {
-        const response = await fetch('http://localhost:1337/api/auth/local', {
+        const response = await fetch(`${url}/auth/local`, {
             method: "POST",
             body: queryString,
             headers: {

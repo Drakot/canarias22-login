@@ -1,7 +1,7 @@
 async function sendData() {
     try {
         const token = localStorage.getItem("token")
-        const response = await fetch('http://localhost:1337/api/users/me', {
+        const response = await fetch(`${url}/users/me`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

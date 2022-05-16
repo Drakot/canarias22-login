@@ -19,3 +19,9 @@ function logout() {
     localStorage.removeItem("token")
     window.location.href = "login.html"
 }
+
+//REMOTA (HEROKU)
+//https://series-canarias-alberto.herokuapp.com/api
+//LOCAL (MI ORDENADOR)
+//http://localhost:1337/api
+const url = "https://series-canarias-alberto.herokuapp.com/api"
