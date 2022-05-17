@@ -62,3 +62,54 @@ function logout() {
     localStorage.removeItem("token")
     window.location.href = "login.html"
 }
+
+const form = document.getElementById("postSeries")
+
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    createSerie()
+})
+
+async function createSerie() {
+    const serieName = document.getElementById("name")
+    const serieType = document.getElementById("type")
+
+    var raw = JSON.stringify({
+        data: {
+            "name": serieName.value,
+            "type": serieType.value
+        }
+    });
+
+    try {
+        const token = localStorage.getItem("token")
+        const response = await fetch(`${url}/series`, {
+            method: "POST",
+            body: raw,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+
+        if (!response.ok) {
+            if (response.status == 401) {
+                logout()
+                return
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
+        }
+        const data = await response.json();
+        console.log(data);
+
+        //fUNCION QUE MUESTRE LO QUE ACABO DE PONER O REDIRECCIONE HACIA ATRAS MOSTRANDO UN MENSAJE DE GUARDADO
+
+    } catch (error) {
+        console.log(error)
+        //Mostrar error al usuario mediante css o js
+    }
+
+}
